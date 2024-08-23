@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload - OCR Project</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <div class="logo">
+          <h1>OCR Project</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/photo">Letter</a></li>
+            <li><a href="/upload">Word</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <section class="upload-section">
+      <div class="upload-container">
+        <h2>Upload Your Image</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <input type="file" name="file" required />
+          <button type="submit" class="btn-primary">Upload</button>
+        </form>
+        <div class="image-preview">
+          <img
+            id="image-preview"
+            src="#"
+            alt="Image Preview"
+            style="display: none"
+          />
+        </div>
+        <div class="detected-text">
+          <h3>Detected Text</h3>
+          <textarea id="detected-text" rows="10" readonly>{{result}}</textarea>
+        </div>
+        <div class="mt-3" style="text-align: center;">
+          <!-- <audio controls>
+          <source src="/static/1.wav" type="audio/mp3">
+          Your browser does not support the audio element.
+          </audio> -->
+            <audio controls>
+            <source src="data:audio/mp3;base64,{{ speech_b64 }}" type="audio/mp3">
+            Your browser does not support the audio element.
+            </audio>
+          </div>
+        <img
+          src="{{photos}}"
+          alt="user uploaded image"
+          width="300"
+          height="300"
+        />
+        <div class="probability">Probability(%)={{probability}}%</div>
+        {% for image in all_final_images%}
+        <img
+          src="{{ url_for('static', filename='outimg/' + image) }}"
+          alt="Processed image Here"
+        />
+        {% endfor%}
+      </div>
+ 
+</div>
+    
+    </section>
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 OCR Project. All rights reserved.</p>
+        <div class="social-icons">
+          <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+          <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+          <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+          <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+        </div>
+      </div>
+  
+    </footer>
+    <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
